@@ -1,5 +1,4 @@
 let points = [];
-let mult = 0.001;
 
 let weather;
 function preload() {
@@ -13,7 +12,7 @@ function setup() {
   noiseDetail(1);
   angleMode(DEGREES);
   
-  let density = 100;
+  let density = weather.main.humidity;
   let space = width / density;
 
   for (let x = 0; x < width; x += space) {
@@ -32,8 +31,10 @@ function draw() {
     let r = map(points[i].x, 0, width, 50, 255);
     let g = map(points[i].y, 0, height, 50, 255);
     let b = map(points[i].x, 0, width, 255, 50);
+    let a = map(weather.clouds.all, 0, 100, 250, 50);
+    let mult = map (weather.wind.speed, 0, 5, 0.001, .01)
 
-    fill(r, g, b)
+    fill(r, g, b, a);
 
     let angle = map(noise(points[i].x * mult, points[i].y * mult), 0, 1, 0, 270)
 
